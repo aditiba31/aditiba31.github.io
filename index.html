@@ -218,7 +218,7 @@ dialog::backdrop{background:rgba(8,5,9,.78);backdrop-filter:blur(3px)}
           <a class="btn btn-red" href="#coffee">Book a coffee chat</a>
         </div>
         <ul class="credits">
-          <li>MS Business Analytics, UC Davis</li>
+          <li>MS Business Analytics, UC Davis · Beta Gamma Sigma</li>
           <li>Microsoft PL-300 Power BI Certified</li>
           <li>4+ years at Accenture</li>
         </ul>
@@ -330,7 +330,7 @@ dialog::backdrop{background:rgba(8,5,9,.78);backdrop-filter:blur(3px)}
   </div>
   <div class="dlg-body">
     <h3>Education</h3>
-    <div class="job"><div class="row">MS, Business Analytics · University of California, Davis<span>Aug 2026</span></div></div>
+    <div class="job"><div class="row">MS, Business Analytics · University of California, Davis · Beta Gamma Sigma honor society<span>Aug 2026</span></div></div>
     <div class="job"><div class="row">B.E., Electronics &amp; Communication · Sir M Visvesvaraya Institute of Technology, Bangalore<span></span></div></div>
 
     <h3>Experience</h3>
@@ -415,29 +415,32 @@ const PROJECTS = [
       "Compared six models. Ridge performed best (0.85 test AUC), ahead of Random Forest and Gradient Boosting, a sign that the signal is mostly linear once the features are well built.",
       "Mapped nearby competitor categories to grocery product categories to suggest a starting product mix for a new store."
     ],
-    result:"Ranked every California ZIP code without a store. Top picks: Downtown San Diego, then Burbank, Cupertino, Irvine and Mar Vista. The strongest signals: the chain avoids crowded markets and does best in diverse, college-educated areas. Results come with an interactive map of every ZIP code.",
+    result:"A ranked shortlist of the best California ZIP codes for a new store, led by Downtown San Diego (score 0.9997 out of 1), then Burbank, Cupertino, Irvine and Mar Vista. The model also showed what makes a location work for the chain: fewer competitors nearby, more diverse neighborhoods and more college-educated residents.",
     fit:"Any location or market decision: retail and restaurant expansion, clinic or branch placement, or choosing which regions to target with marketing."
   },
   {
     id:"salesops",
-    genre:"BI · Dashboards",
+    genre:"BI · Data Modeling",
     title:"Sales & Operations Dashboard",
-    figure:"6", figNote:"business areas joined in one Power BI semantic model",
+    figure:"6", figNote:"fact tables in one secure Power BI semantic model",
     feats:[
-      "Multi-fact model: sales, inventory, campaign spend, promotions, order processing, targets",
-      "Shared dimensions so every view lines up",
-      "DAX KPIs with drill-down dashboards",
-      "Surfaced where to rebalance inventory and marketing spend"
+      "Sales, inventory, campaign spend, promotions, order-to-cash and targets in one model",
+      "Shared customer, product, geography and campaign dimensions",
+      "Row-level security: each user sees only their own region",
+      "DAX KPIs: margin, sales vs target, CTR, CPC and order-to-pay days"
     ],
-    tools:["Power BI","DAX","Data modeling"],
-    hook:"Six parts of the business, six sets of numbers. One model to show how spend connects to results.",
-    problem:"Sales, inventory, campaign spend, promotions, order processing and sales targets were tracked as separate datasets, so there was no single view of how marketing and stock decisions affected sales. The goal was to bring all six areas into one reporting model and build dashboards that show where inventory and marketing spend could be optimized.",
+    tools:["Power BI","DAX","Data modeling","Row-level security"],
+    hook:"Six parts of the business, six sets of numbers. One secure model that connects marketing spend to what actually sold.",
+    problem:"Sales, inventory, campaign spend, promotions, order processing and sales targets were tracked as separate datasets, so there was no single view of how marketing and stock decisions affected sales. The report also had to be safe to share across regions, with each team seeing only its own customers. The goal was one reporting model that answers both.",
     action:[
-      "Designed a multi-fact Power BI semantic model that joins all six areas through shared dimensions, so every view can be filtered the same way.",
-      "Wrote DAX measures for the core KPIs.",
-      "Built drill-down dashboards that go from an executive summary to detail."
+      "Designed a star-schema semantic model with six fact tables (sales, inventory, campaign spend, promotion coverage, order processing and sales targets) linked through shared customer, product, geography and campaign dimensions.",
+      "Linked marketing to products through a promotion-coverage bridge table, so campaign spend, impressions and clicks can be compared against the products each campaign promoted.",
+      "Modeled ship-to and bill-to cities as two relationships to one geography table (one active, one inactive), so sales can be analyzed by either location without duplicating data.",
+      "Set up dynamic row-level security: a regional access role matches each signed-in user to their region, so one report can be shared with every regional team.",
+      "Wrote DAX KPIs for total sales, orders, active customers, gross margin %, sales vs target, month-over-month growth, CTR, cost per click and spend vs budget, plus an order-to-pay measure that tracks how many days each order takes to be paid.",
+      "Built three drill-down report pages: an executive summary (KPIs, monthly sales vs target, region and segment filters), marketing performance (spend vs budget, CTR and CPC by channel, promoted vs non-promoted sales) and operations (order-to-pay and delivery times, inventory vs units sold, category-to-product drill-down)."
     ],
-    result:"One place to compare spend against results across the business, used to identify opportunities to optimize inventory levels and marketing spend.",
+    result:"One governed model where sales, stock, marketing and order-to-cash numbers can all be filtered by the same customer, product, region and campaign, and shared securely across regions. Used to identify opportunities to optimize inventory levels and marketing spend.",
     fit:"Any team that needs to connect spending to results: marketing ROI in retail, inventory planning in supply chain, or campaign performance in media."
   },
   {
@@ -470,14 +473,14 @@ const BRAND_ICONS = [{"n":"Python","hex":"3776AB","p":"M14.25.18l.9.2.73.26.59.3
 const GLYPHS = {
   "SQL":'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>',
   "Power BI":'<svg viewBox="0 0 24 24" fill="#1a1206"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>',
-  "Excel":'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>',
+  "Advanced Excel":'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>',
   "DAX":'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2.2" stroke-linecap="round"><path d="M18 4H6l7 8-7 8h12"/></svg>',
   "statsmodels":'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2" stroke-linecap="round"><path d="M2 20c3 0 4-14 10-14s7 14 10 14"/><path d="M12 6v14" stroke-dasharray="2 3"/></svg>',
   "A/B Testing":'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2" stroke-linecap="round"><path d="M3 20l4-14 4 14M4.5 15h5M14 6h4a3 3 0 010 6h-4zm0 6h4.5a3 3 0 010 6H14z"/></svg>',
   "Matplotlib":'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M6 15l4-5 4 3 5-7"/></svg>',
   "Playwright":'<svg viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>'
 };
-const REEL_ORDER = ["SQL","Python","Power BI","pandas","Excel","R","DAX","NumPy","Matplotlib","scikit-learn","SciPy","statsmodels","A/B Testing","SQLite","Playwright","Jira","GitHub"];
+const REEL_ORDER = ["SQL","Python","Power BI","pandas","Advanced Excel","R","DAX","NumPy","Matplotlib","scikit-learn","SciPy","statsmodels","A/B Testing","SQLite","Playwright","Jira","GitHub"];
 
 function tileHTML(key){
   const brand = BRAND_ICONS.find(value => value.n === key);
