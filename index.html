@@ -163,12 +163,10 @@ dialog::backdrop{background:rgba(8,5,9,.78);backdrop-filter:blur(3px)}
 .dlg-body ul{margin:0;padding-left:20px;display:grid;gap:6px}
 .dlg-body .fit{background:#241c27;border-left:3px solid var(--red);padding:14px 16px;border-radius:8px;margin-top:6px}
 .hook{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.2;color:var(--bulb);margin:0 0 22px;text-wrap:balance}
-.star{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
-.star>span{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font:700 15px var(--mono);background:#241c27;color:var(--bulb);border:1px solid var(--line)}
-.star.result>span{background:var(--bulb);color:#1a1206}
-.star.result p{font-weight:600}
-.star h3{margin:4px 0 6px !important}
-.star p{margin:0}
+.case{padding:16px 0;border-top:1px solid var(--line)}
+.case p{margin:0}
+.case.impact{border:1px solid color-mix(in srgb,var(--bulb) 55%,transparent);border-radius:10px;background:#211a14;padding:16px 18px;margin:6px 0 8px}
+.case.impact p{font-weight:600}
 .close{flex:none}
 .job{margin-bottom:20px}
 .job .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;font-weight:700}
@@ -280,8 +278,8 @@ dialog::backdrop{background:rgba(8,5,9,.78);backdrop-filter:blur(3px)}
         <div class="booth">
           <p><strong>Happy to talk about:</strong></p>
           <ul class="talk">
-            <li>Data analyst roles on your team</li>
-            <li>How your team measures performance and makes decisions with data</li>
+            <li>Data analyst or BI roles you're hiring for</li>
+            <li>A business problem your team is trying to solve with data</li>
             <li>Any project above, from data cleaning to recommendations</li>
           </ul>
           <div class="contact">
@@ -386,8 +384,7 @@ const PROJECTS = [
     ],
     tools:["Python","K-Means","RFM"],
     hook:"Fewer than 1 in 7 customers brought in 61% of the revenue. The question was what to do about the other 86%.",
-    situation:"A UK online gift retailer had a year of transactions (541,909 rows), but a quarter of them had no customer ID, and returns, cancellations and internal stock adjustments were mixed in with real sales.",
-    task:"Find out which customers actually drive revenue, which are growing and which are slipping away, and turn that into a plan for where the marketing budget should go.",
+    problem:"A UK online gift retailer had a year of transactions (541,909 rows), but a quarter of them had no customer ID, and returns, cancellations and internal stock adjustments were mixed in with real sales. The goal was to find which customers drive revenue, which are growing and which are slipping away, and turn that into a plan for where the marketing budget should go.",
     action:[
       "Treated the messy data as evidence: separated genuine customer returns (about 90%) from warehouse adjustments, and traced 98.9% of missing customer IDs to UK orders, pointing to a checkout capture gap.",
       "Cleaned the data down to 392,692 valid transactions across 4,338 customers.",
@@ -411,8 +408,7 @@ const PROJECTS = [
     ],
     tools:["Python","Ridge","Census","Yelp"],
     hook:"Where should the next store open? The answer was spread across three datasets that had never been joined.",
-    situation:"Choosing where to open a grocery store depends on demand, competition and demographics, and each lives in a different source: Yelp listings, U.S. Census data and existing store locations.",
-    task:"Rank California ZIP codes by how underserved they are, so expansion decisions rest on data rather than guesswork.",
+    problem:"Choosing where to open a grocery store depends on demand, competition and demographics, and each lives in a different source: Yelp listings, U.S. Census data and existing store locations. The goal was to rank California ZIP codes by how underserved they are, so expansion decisions rest on data rather than guesswork.",
     action:[
       "Integrated Yelp competitor data, Census demographics and store locations into one market-level dataset.",
       "Engineered 21 features for each California ZIP code.",
@@ -434,8 +430,7 @@ const PROJECTS = [
     ],
     tools:["Power BI","DAX","Data modeling"],
     hook:"Six parts of the business, six sets of numbers. One model to show how spend connects to results.",
-    situation:"Sales, inventory, campaign spend, promotions, order processing and sales targets were tracked as separate datasets, so there was no single view of how marketing and stock decisions affected sales.",
-    task:"Bring all six areas into one reporting model and build dashboards that show where inventory and marketing spend could be optimized.",
+    problem:"Sales, inventory, campaign spend, promotions, order processing and sales targets were tracked as separate datasets, so there was no single view of how marketing and stock decisions affected sales. The goal was to bring all six areas into one reporting model and build dashboards that show where inventory and marketing spend could be optimized.",
     action:[
       "Designed a multi-fact Power BI semantic model that joins all six areas through shared dimensions, so every view can be filtered the same way.",
       "Wrote DAX measures for the core KPIs.",
@@ -457,8 +452,7 @@ const PROJECTS = [
     ],
     tools:["Python","Playwright","SQLite","SQL"],
     hook:"Two groups of IPOs, the same market, a 23-point gap in returns after 90 days.",
-    situation:"IPO performance data is scattered across listing sites, SEC EDGAR filings, venture-capital history and stock prices, so comparing how IPOs perform after listing takes real data work first.",
-    task:"Collect the data, model it cleanly and compare post-IPO performance across groups of companies.",
+    problem:"IPO performance data is scattered across listing sites, SEC EDGAR filings, venture-capital history and stock prices, so comparing how IPOs perform after listing takes real data work first. The goal was to collect the data, model it cleanly and compare post-IPO performance across groups of companies.",
     action:[
       "Wrote a Python Playwright scraper to collect IPO data, drawing on SEC EDGAR filings, venture-capital history and post-IPO pricing.",
       "Designed a normalized five-table SQLite database holding 2,655 IPO records.",
@@ -517,10 +511,9 @@ function openProject(id){
     : `<a class="btn btn-gold" href="#coffee" data-close>Ask me about this project</a>`;
   document.getElementById("proj-body").innerHTML = `
     <p class="hook">${value.hook}</p>
-    <div class="star"><span>S</span><div><h3>Situation</h3><p>${value.situation}</p></div></div>
-    <div class="star"><span>T</span><div><h3>Task</h3><p>${value.task}</p></div></div>
-    <div class="star"><span>A</span><div><h3>Action</h3><ul>${value.action.map(item => `<li>${item}</li>`).join("")}</ul></div></div>
-    <div class="star result"><span>R</span><div><h3>Result</h3><p>${value.result}</p></div></div>
+    <div class="case"><h3>The problem</h3><p>${value.problem}</p></div>
+    <div class="case"><h3>What I did</h3><ul>${value.action.map(item => `<li>${item}</li>`).join("")}</ul></div>
+    <div class="case impact"><h3>The impact</h3><p>${value.result}</p></div>
     <h3>Where else this applies</h3><p class="fit">${value.fit}</p>
     <h3>Tools</h3><div class="chips">${value.tools.map(item => `<span class="chip">${item}</span>`).join("")}</div>
     <div class="dlg-actions">${codeButton}${value.repo ? '<a class="btn btn-ghost" href="#coffee" data-close>Talk about this project</a>' : ''}</div>`;
