@@ -368,7 +368,8 @@ const PROJECTS = [
     id:"segmentation", featured:true,
     genre:"Clustering · Retention",
     title:"Customer Segmentation & Retention",
-    figure:"52.7%", figNote:"of revenue came from just 13.2% of customers",
+    figure:"61.0%", figNote:"of revenue came from just 13.7% of customers",
+    repo:"https://github.com/aditiba31/customer-segmentation-retention-analysis",
     feats:[
       "Cleaned 541,909 transactions",
       "Kept 392,692 valid records after a 24.9% CustomerID gap",
@@ -382,7 +383,7 @@ const PROJECTS = [
       "Built customer-level features and segmented 4,338 customers into four groups using K-Means clustering.",
       "Profiled each segment by value and behavior to shape targeted retention recommendations."
     ],
-    result:"Showed that 13.2% of customers generated 52.7% of revenue, and proposed a segment-migration KPI to track customers moving between groups over time.",
+    result:"Showed that 13.7% of customers generated 61.0% of revenue, and proposed a segment-migration KPI to track customers moving between groups over time.",
     fit:"The same approach maps to subscriber and fan segmentation: finding the superfans who drive most revenue, spotting at-risk subscribers before they churn, and tracking movement between tiers."
   },
   {
@@ -390,6 +391,7 @@ const PROJECTS = [
     genre:"Predictive Modeling · Location",
     title:"Grocery Location Recommender",
     figure:"0.85", figNote:"test AUC from the selected Ridge model",
+    repo:"https://github.com/aditiba31/grocery-location-recommendation-system",
     feats:[
       "Combined Yelp competitor data, Census demographics and store locations",
       "Engineered 21 market-level features across California ZIP codes",
@@ -498,7 +500,7 @@ function openProject(id){
     <h3>The result</h3><p>${value.result}</p>
     <h3>How this plays in entertainment</h3><p class="fit">${value.fit}</p>
     <h3>Tools</h3><div class="chips">${value.tools.map(item => `<span class="chip">${item}</span>`).join("")}</div>
-    <div class="dlg-actions"><a class="btn btn-gold" href="https://www.github.com/aditiba31">See my code on GitHub</a><a class="btn btn-ghost" href="#coffee" data-close>Talk about this project</a></div>`;
+    <div class="dlg-actions"><a class="btn btn-gold" href="${value.repo || 'https://www.github.com/aditiba31'}">${value.repo ? 'See the code on GitHub' : 'Visit my GitHub'}</a><a class="btn btn-ghost" href="#coffee" data-close>Talk about this project</a></div>`;
   projDlg.showModal();
 }
 cardsEl.addEventListener("click", event => {
