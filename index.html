@@ -398,23 +398,24 @@ const PROJECTS = [
     id:"grocery",
     genre:"Predictive Modeling · Location",
     title:"Grocery Location Recommender",
-    figure:"0.85", figNote:"test AUC from the selected Ridge model",
+    figure:"0.85", figNote:"test AUC: Ridge beat five other models, including Random Forest",
     repo:"https://github.com/aditiba31/grocery-location-recommendation-system",
     feats:[
-      "Combined Yelp competitor data, Census demographics and store locations",
-      "Engineered 21 market-level features across California ZIP codes",
-      "Compared six models before choosing Ridge",
-      "Ranked underserved ZIP codes for store expansion"
+      "Scraped 200+ store locations and pulled ~5,000 competitors from the Yelp API",
+      "Added 25 Census demographics for every California ZIP code",
+      "Engineered 21 features and compared six models",
+      "Top pick for a new store: Downtown San Diego"
     ],
-    tools:["Python","Ridge","Census","Yelp"],
-    hook:"Where should the next store open? The answer was spread across three datasets that had never been joined.",
-    problem:"Choosing where to open a grocery store depends on demand, competition and demographics, and each lives in a different source: Yelp listings, U.S. Census data and existing store locations. The goal was to rank California ZIP codes by how underserved they are, so expansion decisions rest on data rather than guesswork.",
+    tools:["Python","scikit-learn","Yelp API","Census API","folium"],
+    hook:"Where should Trader Joe's open its next California store? The model's top answer: Downtown San Diego.",
+    problem:"Choosing where to open a grocery store depends on demand, competition and demographics, and each lives in a different source: store locations, Yelp listings and U.S. Census data. The goal was to learn what the ZIP codes where Trader Joe's already operates have in common, then score every other California ZIP code to find the best expansion opportunities.",
     action:[
-      "Integrated Yelp competitor data, Census demographics and store locations into one market-level dataset.",
-      "Engineered 21 features for each California ZIP code.",
-      "Evaluated six models and selected Ridge."
+      "Scraped 200+ Trader Joe's store addresses in California and geocoded them, pulled about 5,000 competitor businesses across 30 cities from the Yelp API, and collected 25 demographic variables per ZIP code from the Census API.",
+      "Engineered 21 features, from competitor saturation and ratings to income, education and diversity, and split train and test sets by ZIP code to prevent data leakage.",
+      "Compared six models. Ridge performed best (0.85 test AUC), ahead of Random Forest and Gradient Boosting, a sign that the signal is mostly linear once the features are well built.",
+      "Mapped nearby competitor categories to grocery product categories to suggest a starting product mix for a new store."
     ],
-    result:"The Ridge model reached 0.85 AUC on the test set and produced a ranked list of underserved ZIP codes to prioritize for potential store expansion.",
+    result:"Ranked every California ZIP code without a store. Top picks: Downtown San Diego, then Burbank, Cupertino, Irvine and Mar Vista. The strongest signals: the chain avoids crowded markets and does best in diverse, college-educated areas. Results come with an interactive map of every ZIP code.",
     fit:"Any location or market decision: retail and restaurant expansion, clinic or branch placement, or choosing which regions to target with marketing."
   },
   {
@@ -441,24 +442,25 @@ const PROJECTS = [
   },
   {
     id:"ipo",
-    genre:"SQL · Web Scraping",
+    genre:"Data Pipeline · SQL",
     title:"IPO Performance Tracker",
-    figure:"23 pts", figNote:"difference in 90-day returns uncovered with SQL",
+    figure:"2,655", figNote:"U.S. IPOs scraped (2019–2025), narrowed to 702 with full 90-day return data",
     feats:[
-      "Python Playwright scraper to collect IPO data",
-      "2,655 IPO records in a five-table SQLite database",
-      "Joins, CTEs and aggregations for the analysis",
-      "Compared post-IPO performance across groups"
+      "Scraped IPO listings and downloaded S-1 filings from SEC EDGAR",
+      "Parsed financials, underwriters and VC history from filing text",
+      "Pulled 30-, 90- and 180-day stock returns",
+      "Loaded it all into a five-table SQLite database"
     ],
-    tools:["Python","Playwright","SQLite","SQL"],
-    hook:"Two groups of IPOs, the same market, a 23-point gap in returns after 90 days.",
-    problem:"IPO performance data is scattered across listing sites, SEC EDGAR filings, venture-capital history and stock prices, so comparing how IPOs perform after listing takes real data work first. The goal was to collect the data, model it cleanly and compare post-IPO performance across groups of companies.",
+    tools:["Python","Playwright","SQLite","SQL","yfinance"],
+    hook:"IPOs from 2020 gained 45.8% in their first 90 days. IPOs from 2022 lost 39.0%.",
+    problem:"IPO data is scattered: listings on one site, financials buried in SEC S-1 filings, stock prices somewhere else. The goal was to build a pipeline that brings it all together and shows how U.S. IPOs from 2019 to 2025 actually performed after listing, by year and by underwriter.",
     action:[
-      "Wrote a Python Playwright scraper to collect IPO data, drawing on SEC EDGAR filings, venture-capital history and post-IPO pricing.",
-      "Designed a normalized five-table SQLite database holding 2,655 IPO records.",
-      "Used SQL joins, CTEs and aggregations to analyze financial performance."
+      "Scraped 2,655 IPO listings from stockanalysis.com, then found and downloaded each company's S-1 filing from SEC EDGAR.",
+      "Parsed financials, underwriters and venture-capital history out of the filing text. When Crunchbase blocked scraping, extracted VC history from the S-1 filings instead.",
+      "Cleaned the data step by step: removed 932 SPACs with no operating financials, IPOs with no offer price, and delisted stocks, leaving 702 IPOs with full 90-day return data.",
+      "Pulled 30-, 90- and 180-day returns with yfinance and loaded everything into a normalized five-table SQLite database for SQL analysis."
     ],
-    result:"Identified a 23-percentage-point difference in 90-day returns between groups of IPOs.",
+    result:"Average 90-day returns swung from +45.8% for 2020 IPOs to −39.0% for 2022 IPOs, tracking the shift from pandemic stimulus to aggressive rate hikes. Mid-tier banks Jefferies (+12.0%) and Barclays (+7.1%) beat Goldman Sachs (+1.2%) and Morgan Stanley (−1.4%) on 90-day returns.",
     fit:"Any question that starts with scattered data: collecting it from websites and filings, modeling it in a clean database, then comparing performance across groups with SQL."
   }
 ];
