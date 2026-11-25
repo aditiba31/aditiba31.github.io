@@ -449,10 +449,10 @@ const PROJECTS = [
     title:"IPO Performance Tracker",
     figure:"2,655", figNote:"U.S. IPOs scraped (2019–2025), narrowed to 702 with full 90-day return data",
     feats:[
-      "Scraped IPO listings and downloaded S-1 filings from SEC EDGAR",
-      "Parsed financials, underwriters and VC history from filing text",
-      "Pulled 30-, 90- and 180-day stock returns",
-      "Loaded it all into a five-table SQLite database"
+      "3 sources joined: IPO listings, SEC S-1 filings and stock prices",
+      "4-step cleaning funnel: 2,655 raw IPOs down to 702 analysis-ready",
+      "Quality checks caught 983 false underwriter matches",
+      "Five-table SQLite database, analyzed with SQL joins and CTEs"
     ],
     tools:["Python","Playwright","SQLite","SQL","yfinance"],
     hook:"IPOs from 2020 gained 45.8% in their first 90 days. IPOs from 2022 lost 39.0%.",
@@ -461,10 +461,11 @@ const PROJECTS = [
       "Scraped 2,655 IPO listings from stockanalysis.com, then found and downloaded each company's S-1 filing from SEC EDGAR.",
       "Parsed financials, underwriters and venture-capital history out of the filing text. When Crunchbase blocked scraping, extracted VC history from the S-1 filings instead.",
       "Cleaned the data step by step: removed 932 SPACs with no operating financials, IPOs with no offer price, and delisted stocks, leaving 702 IPOs with full 90-day return data.",
-      "Pulled 30-, 90- and 180-day returns with yfinance and loaded everything into a normalized five-table SQLite database for SQL analysis."
+      "Pulled 30-, 90- and 180-day returns with yfinance and loaded everything into a normalized five-table SQLite database (IPOs, financials, VC history, underwriters, price performance) for SQL analysis.",
+      "Ran cross-table data-quality checks and fixed what they exposed: a three-letter bank name (UBS) falsely matched in 983 filings, a downloader that saved the SEC homepage instead of the filing, and company IDs stored as decimals that broke EDGAR lookups."
     ],
-    result:"Average 90-day returns swung from +45.8% for 2020 IPOs to −39.0% for 2022 IPOs, tracking the shift from pandemic stimulus to aggressive rate hikes. Mid-tier banks Jefferies (+12.0%) and Barclays (+7.1%) beat Goldman Sachs (+1.2%) and Morgan Stanley (−1.4%) on 90-day returns.",
-    fit:"Any question that starts with scattered data: collecting it from websites and filings, modeling it in a clean database, then comparing performance across groups with SQL."
+    result:"A clean, query-ready database covering seven years of U.S. IPOs. Average 90-day returns swung from +45.8% for 2020 IPOs to −39.0% for 2022 IPOs, tracking the shift from pandemic stimulus to aggressive rate hikes, and stayed negative until nearly recovering in 2025 (−4.9%, partial year). Mid-tier banks Jefferies (+12.0%) and Barclays (+7.1%) beat Goldman Sachs (+1.2%) and Morgan Stanley (−1.4%) on 90-day returns.",
+    fit:"Any question that starts with scattered data: collecting it from websites and filings, checking it for errors, modeling it in a clean database, then comparing performance across groups with SQL."
   }
 ];
 
