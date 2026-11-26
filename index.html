@@ -87,7 +87,9 @@ section{padding:84px 0}
   linear-gradient(var(--stage),var(--stage));border-block:1px solid var(--line)}
 
 /* ---------- project price cards ---------- */
-.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;align-items:stretch}
+.cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px;align-items:stretch}
+.cards>.card{grid-column:span 2}
+.cards>.card:nth-child(n+4){grid-column:span 3}
 .card{position:relative;display:flex;flex-direction:column;background:var(--stage);border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px 22px;min-width:0}
 .card.featured{background:linear-gradient(180deg,#2a1420,#17121a 55%);border-color:color-mix(in srgb,var(--bulb) 60%,transparent);box-shadow:0 20px 60px -30px color-mix(in srgb,var(--bulb) 60%,transparent)}
 .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--bulb);color:#1a1206;font:700 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;border-radius:999px;white-space:nowrap}
@@ -173,10 +175,10 @@ dialog::backdrop{background:rgba(8,5,9,.78);backdrop-filter:blur(3px)}
 .job .row span{font:500 13px var(--mono);color:var(--mute);font-weight:400}
 .dlg-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
 
-@media (max-width:1040px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:34px}}
+@media (max-width:1040px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:34px}.cards>.card,.cards>.card:nth-child(n+4){grid-column:auto}.cards>.card:last-child{grid-column:1/-1}}
 @media (max-width:820px){.boxoffice{grid-template-columns:1fr}.curtain{display:none}}
 @media (max-width:600px){
-  .cards{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}.cards>.card,.cards>.card:last-child{grid-column:auto}
   .marquee{padding:46px 22px 36px}
   .nav ul{gap:14px}.nav ul li:first-child{display:none}
   section{padding:64px 0}
@@ -371,7 +373,32 @@ const CALENDLY_URL = "https://calendly.com/aditi-akshara31/30min";
 
 const PROJECTS = [
   {
-    id:"segmentation", featured:true,
+    id:"workforce", featured:true,
+    genre:"Forecasting · KPI Reporting",
+    title:"Workforce KPI & Forecasting Tracker",
+    figure:"12 / 12", figNote:"forecast months below a +1% growth target (−2.6% on average)",
+    repo:"https://github.com/aditiba31/workforce-kpi-tracker",
+    feats:[
+      "142 months of BLS employment data cleaned with Power Query",
+      "Automated checks for gaps, duplicates, missing values and outliers",
+      "12-month FORECAST.ETS forecast that beat a naive forecast (MASE 0.73)",
+      "One-page dashboard with KPIs, a year slicer, variance charts and recommended actions"
+    ],
+    tools:["Excel","Power Query","FORECAST.ETS","PivotTables"],
+    hook:"Headcount is forecast to stay flat for the next year. Against a modest 1% growth goal, that means missing target in all 12 months.",
+    problem:"Workforce planning needs three answers: where headcount is now, where it is heading, and whether it will reach the plan. Using 142 months of U.S. Information-sector employment from the Bureau of Labor Statistics (2015 to 2026), the goal was to build an Excel tracker that checks the data, forecasts the next 12 months and reports the gap against a target on one page.",
+    action:[
+      "Loaded and cleaned the monthly series with Power Query, so the same steps rerun on each new data release.",
+      "Built automated data-quality checks for month gaps, duplicate months, missing values and 3-standard-deviation outliers. A second pass, recalculated without the COVID drop, caught two months the extreme value had been hiding.",
+      "Forecast 12 months with Excel's exponential smoothing (FORECAST.ETS) and 95% confidence bounds. The automatic setting produced a flat forecast, so I set seasonality to 12 to capture the yearly January dip; the model beat a naive forecast (MASE 0.73).",
+      "Compared the forecast with a year-over-year target (same month last year + 1%) and calculated the monthly variance in thousands and in percent.",
+      "Built a one-page dashboard: six KPIs, a pivot chart with a year slicer, forecast, forecast-vs-target and monthly variance charts, plus written insights and recommended actions."
+    ],
+    result:"Employment is down 4.0% year over year and forecast to stay flat at about 2.74 million, so all 12 months fall below the target: 2.6% short on average and 5.0% at worst (December 2026). The gap narrows to 0.6% by October 2027, but only because the targets fall with 2026's lower actuals, not because the outlook improves. Recommended reassessing the growth target and refreshing the forecast monthly.",
+    fit:"Any planning and reporting work: headcount and hiring plans, sales or demand forecasts against quota, and monthly KPI reporting to leadership."
+  },
+  {
+    id:"segmentation",
     genre:"Clustering · Retention",
     title:"Customer Segmentation & Retention",
     figure:"61.0%", figNote:"of revenue came from just 13.7% of customers",
