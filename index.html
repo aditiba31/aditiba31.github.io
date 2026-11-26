@@ -384,18 +384,18 @@ const PROJECTS = [
       "12-month FORECAST.ETS forecast that beat a naive forecast (MASE 0.73)",
       "One-page dashboard with KPIs, a year slicer, variance charts and recommended actions"
     ],
-    tools:["Excel","Power Query","FORECAST.ETS","PivotTables"],
-    hook:"Headcount is forecast to stay flat for the next year. Against a modest 1% growth goal, that means missing target in all 12 months.",
-    problem:"Workforce planning needs three answers: where headcount is now, where it is heading, and whether it will reach the plan. Using 142 months of U.S. Information-sector employment from the Bureau of Labor Statistics (2015 to 2026), the goal was to build an Excel tracker that checks the data, forecasts the next 12 months and reports the gap against a target on one page.",
+    tools:["Excel","Power Query","FORECAST.ETS","PivotTables","PivotCharts","Slicers"],
+    hook:"Employment is forecast to stay broadly flat over the next year, so all 12 monthly forecasts fall below an illustrative 1% year-over-year growth target.",
+    problem:"Workforce planning needs three answers: current headcount, where it is heading, and whether it will hit target. Using 142 months of U.S. Information-sector employment data from the Bureau of Labor Statistics (2015–2026), I built an Excel tracker that combines data-quality checks, a 12-month forecast, KPIs and target variance on one dashboard.",
     action:[
-      "Loaded and cleaned the monthly series with Power Query, so the same steps rerun on each new data release.",
-      "Built automated data-quality checks for month gaps, duplicate months, missing values and 3-standard-deviation outliers. A second pass, recalculated without the COVID drop, caught two months the extreme value had been hiding.",
-      "Forecast 12 months with Excel's exponential smoothing (FORECAST.ETS) and 95% confidence bounds. The automatic setting produced a flat forecast, so I set seasonality to 12 to capture the yearly January dip; the model beat a naive forecast (MASE 0.73).",
-      "Compared the forecast with a year-over-year target (same month last year + 1%) and calculated the monthly variance in thousands and in percent.",
-      "Built a one-page dashboard: six KPIs, a pivot chart with a year slicer, forecast, forecast-vs-target and monthly variance charts, plus written insights and recommended actions."
+      "Imported and cleaned the monthly data with Power Query, so the same steps rerun whenever the source data is refreshed.",
+      "Built automated checks for missing values, duplicate months, date gaps and 3-standard-deviation outliers. A second pass, with the extreme COVID drop excluded from the threshold, flagged two more months to investigate.",
+      "Forecast 12 months with Excel's exponential smoothing (FORECAST.ETS) and 95% confidence bounds. The automatic setting gave a flat forecast, so I set seasonality to 12 to capture the yearly pattern. The model beat a naive forecast (MASE 0.73).",
+      "Set an illustrative target of same month last year + 1%, and calculated the monthly variance in thousands and in percent.",
+      "Designed a one-page dashboard with six KPIs, a PivotChart with a year slicer, the trend and forecast, forecast vs target, monthly variance, and written recommendations."
     ],
-    result:"Employment is down 4.0% year over year and forecast to stay flat at about 2.74 million, so all 12 months fall below the target: 2.6% short on average and 5.0% at worst (December 2026). The gap narrows to 0.6% by October 2027, but only because the targets fall with 2026's lower actuals, not because the outlook improves. Recommended reassessing the growth target and refreshing the forecast monthly.",
-    fit:"Any planning and reporting work: headcount and hiring plans, sales or demand forecasts against quota, and monthly KPI reporting to leadership."
+    result:"Employment is down 4.0% year over year and is forecast to stay flat at about 2.74 million. All 12 monthly forecasts fall below target: 2.6% short on average, and 5.0% at worst (December 2026). The gap narrows to 0.6% by October 2027, but only because the targets fall with lower actuals, not because the outlook improves. Recommended reassessing the growth target and refreshing the forecast monthly.",
+    fit:"Workforce and headcount planning, sales and demand forecasting, target tracking, data-quality management and KPI reporting."
   },
   {
     id:"segmentation",
